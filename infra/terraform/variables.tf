@@ -1,0 +1,12 @@
+variable "gcp_project" { default = "sand-457022"}
+variable "gcp_region"  { default = "europe-west1" }
+variable "aws_region"  { default = "us-east-1" }
+variable "flask_image" {type = string }
+variable "list_url" {type = string }
+variable "add_url"  {type = string }
+variable "buy_url" {type = string }
+variable "lambda_list_image" {type = string }
+variable "lambda_role" {type = string }
+variable "lambda_add_image" {type = string }
+variable "lambda_buy_image" {type = string }
+variable "artifact_repo_generator" { default = "flask-store-repo" }
