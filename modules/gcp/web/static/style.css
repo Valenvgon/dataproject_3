@@ -1,0 +1,139 @@
+/* =====  LIBRERÍA DIGITAL – HOJA DE ESTILO 2025  ===== */
+
+/* Paleta base con variables CSS para fácil rebranding */
+:root {
+    --clr-primary: #006d77;      /* verde azulado */
+    --clr-primary-dark: #004d55;
+    --clr-accent:  #ffbf69;      /* melocotón */
+    --clr-accent-dark: #ff9f40;
+    --clr-bg:      #f0f4f8;     /* gris muy claro */
+    --clr-card:    #ffffff;
+    --clr-text:    #2d2d2d;
+}
+
+/* Reset mínimo para coherencia */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    background: var(--clr-bg);
+    color: var(--clr-text);
+    line-height: 1.6;
+}
+
+/* ==========  ESTRUCTURA  ========== */
+header {
+    background: linear-gradient(135deg, var(--clr-primary) 0%, var(--clr-accent) 100%);
+    color: #fff;
+    padding: 2rem 1rem;
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: 700;
+    position: relative;
+    overflow: hidden;
+}
+/* Detalle decorativo – subrayado animado */
+header::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: -100%;
+    width: 200%;
+    height: 6px;
+    background: var(--clr-accent-dark);
+    animation: slide 6s infinite linear;
+}
+@keyframes slide {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+main {
+    padding: 3rem 1.5rem;
+    max-width: 1100px;
+    margin-inline: auto;
+}
+
+section {
+    margin-bottom: 3rem;
+}
+
+/* ==========  GRADE & CARDS  ========== */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    background: var(--clr-card);
+    border-radius: 18px 4px 18px 4px; /* forma distintiva */
+    padding: 1.25rem 1.5rem;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+    border-left: 5px solid var(--clr-primary);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+}
+
+/* ==========  FORM ELEMENTS  ========== */
+input {
+    padding: 0.65rem 0.85rem;
+    margin: 0.4rem;
+    border: 2px solid var(--clr-primary);
+    border-radius: 10px;
+    width: 200px;
+    font-size: 0.95rem;
+    transition: border-color 0.2s ease;
+}
+input:focus {
+    outline: none;
+    border-color: var(--clr-accent);
+    box-shadow: 0 0 0 3px rgba(255,191,105,0.35);
+}
+
+button {
+    padding: 0.65rem 1.25rem;
+    background: var(--clr-accent);
+    color: #1a1a1a;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    letter-spacing: .5px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+button:hover {
+    background: var(--clr-accent-dark);
+    transform: translateY(-2px);
+}
+button:active {
+    transform: translateY(1px);
+}
+
+/* ==========  FOOTER  ========== */
+footer {
+    background: var(--clr-primary-dark);
+    padding: 1.2rem 1rem;
+    text-align: center;
+    font-size: 1rem;
+    color: #e6e6e6;
+    margin-top: 4rem;
+    clip-path: polygon(0 0, 100% 15%, 100% 100%, 0% 100%);
+}
+
+/* Small helper utility */
+@media (max-width: 500px) {
+    input {
+        width: 100%;
+    }
+    header {
+        font-size: 1.6rem;
+    }
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Librería Digital</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>Librería Digital</header>
+    <main>
+        <section>
+            <h2>Catálogo</h2>
+            <div id="products" class="grid"></div>
+        </section>
+
+        <section>
+            <h2>Nuevo Libro</h2>
+            <input type="text" id="newName" placeholder="Título">
+            <input type="number" id="newStock" placeholder="Ejemplares">
+            <button onclick="addProduct()">Añadir</button>
+        </section>
+
+        <section>
+            <h2>Comprar Libro</h2>
+            <input type="number" id="buyId" placeholder="ID del libro">
+            <input type="number" id="buyQty" placeholder="Cantidad a comprar">
+            <button onclick="buyProduct()">Comprar</button>
+        </section>
+    </main>
+
+    <footer>© 2025 Valentín books </footer>
+
+    <script>
+        async function loadProducts() {
+            const res = await fetch("/products");
+            const data = await res.json();
+            const container = document.getElementById("products");
+            container.innerHTML = "";
+            for (const id in data) {
+                const item = document.createElement("div");
+                item.className = "card";
+                item.innerHTML = `
+                    <h3>${data[id].name}</h3>
+                    <p>Stock: ${data[id].stock}</p>
+                    <p>ID: ${id}</p>
+                `;
+                container.appendChild(item);
+            }
+        }
+
+        async function addProduct() {
+            const nombre = document.getElementById("newName").value;
+            const stock = parseInt(document.getElementById("newStock").value);
+            if (!nombre || isNaN(stock)) return alert("Es necesarios que se rellenen los campos correctamente");
+
+            const res = await fetch("/products", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ nombre, stock })
+            });
+            const result = await res.json();
+            if (result.error) {
+                alert("Error: " + result.error);
+            } else {
+                loadProducts();
+            }
+        }
+
+        async function buyProduct() {
+            const id = document.getElementById("buyId").value;
+            const cantidad = parseInt(document.getElementById("buyQty").value);
+            const res = await fetch("/products");
+            const products = await res.json();
+            if (!products[id]) return alert("ID inválido");
+
+            const stockDisponible = products[id].stock;
+            if (cantidad > stockDisponible) return alert("Stock insuficiente");
+
+            const updateRes = await fetch(`/products/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ cantidad })
+            });
+
+            const result = await updateRes.json();
+            if (result.error) {
+                alert("Error: " + result.error);
+            } else {
+                alert(result.message);
+                loadProducts();
+            }
+        }
+
+        loadProducts();
+    </script>
+</body>
+</html>
