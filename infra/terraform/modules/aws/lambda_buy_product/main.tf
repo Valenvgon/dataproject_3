@@ -1,5 +1,5 @@
-resource "aws_ecr_repository" "add_product" {
-  name                 = "add-product"
+resource "aws_ecr_repository" "get_item" {
+  name                 = "get-item"
   force_delete         = true
   image_tag_mutability = "MUTABLE"
 }
@@ -8,14 +8,14 @@ resource "null_resource" "build_and_push_lambda_image" {
   provisioner "local-exec" {
     command = <<EOT
       docker buildx inspect lambda-builder >/dev/null 2>&1 || docker buildx create --name lambda-builder --driver docker-container --use
-      aws ecr get-login-password --region ${var.aws_region} | docker login --username AWS --password-stdin ${aws_ecr_repository.add_product.repository_url}
+      aws ecr get-login-password --region ${var.aws_region} | docker login --username AWS --password-stdin ${aws_ecr_repository.get_item.repository_url}
       docker buildx build \
         --builder lambda-builder \
         --platform linux/amd64 \
         --push \
         --provenance=false \
-        -t ${aws_ecr_repository.add_product.repository_url}:latest \
-        /Users/valentinvg/Documents/GitHub/dataproject_3/modules/aws/aws_lambda_add
+        -t ${aws_ecr_repository.get_item.repository_url}:latest \
+        /Users/valentinvg/Documents/GitHub/dataproject_3/modules/aws/aws_lambda_buy
     EOT
     interpreter = ["/bin/bash", "-c"]
   }
@@ -24,13 +24,13 @@ resource "null_resource" "build_and_push_lambda_image" {
     always_run = timestamp()
   }
 
-  depends_on = [aws_ecr_repository.add_product]
+  depends_on = [aws_ecr_repository.get_item]
 }
 
-resource "aws_lambda_function" "add_product" {
-  function_name = "addProduct"
+resource "aws_lambda_function" "get_item" {
+  function_name = "getItem"
   package_type  = "Image"
-  image_uri     = "${aws_ecr_repository.add_product.repository_url}:latest"
+  image_uri     = "${aws_ecr_repository.get_item.repository_url}:latest"
   role          = var.lambda_exec_role_arn
   timeout       = 10
 

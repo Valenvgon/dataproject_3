@@ -1,8 +1,4 @@
-flask_image        = "gcr.io/my-project/flask-store:latest"
-lambda_list_image  = "123456789012.dkr.ecr.eu-north-1.amazonaws.com/lambda-list:latest"
-lambda_add_image   = "123456789012.dkr.ecr.eu-north-1.amazonaws.com/lambda-add:latest"
-lambda_buy_image   = "123456789012.dkr.ecr.eu-north-1.amazonaws.com/lambda-buy:latest"
-lambda_role        = "arn:aws:iam::123456789012:role/lambda-exec"
-list_url           = "https://api.example.com/list"
-add_url            = "https://api.example.com/add"
-buy_url            = "https://api.example.com/buy"
+#! GCP terraform Vars
+module_path_gcp    = "/Users/valentinvg/Documents/GitHub/dataproject_3/modules/gcp/web"
+
+#! AWS terraform Vars 
