@@ -13,3 +13,6 @@ datastream_user     = "datastream_user"
 datastream_password = "DatastreamUserPassword123"
 
 rds_endpoint        = "deportiva-postgres.c78gwuuekw8p.eu-west-1.rds.amazonaws.com"
+
+db_user            = "dbadminuser"
+db_pass            = "SuperSecurePass123"

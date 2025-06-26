@@ -12,7 +12,7 @@ module "gcp_flask" {
     db_pass = var.db_pass
     db_user = var.db_user
     base_url = var.base_url
-    depends_on = [module.artifact_registry]
+    depends_on = [module.artifact_registry, module.rds]
 }
 
 resource "google_datastream_connection_profile" "aws_rds_source" {
@@ -27,6 +27,7 @@ resource "google_datastream_connection_profile" "aws_rds_source" {
     password = var.db_pass
     database = var.db_name
   }
+  depends_on = [module.gcp_flask, module.rds]
 }
 
 resource "google_datastream_connection_profile" "bq_sink" {
@@ -50,6 +51,10 @@ module "datastream" {
 
   source_connection_profile_id      = google_datastream_connection_profile.aws_rds_source.id
   destination_connection_profile_id = google_datastream_connection_profile.bq_sink.id
+  depends_on = [
+    google_datastream_connection_profile.aws_rds_source,
+    google_datastream_connection_profile.bq_sink
+  ]
 }
 
 #! --- AWS Lambda functions ---
@@ -64,6 +69,7 @@ module "get_products" {
   db_pass = var.db_pass
   lambda_subnet_ids     = [module.rds.subnet_a_id, module.rds.subnet_b_id]
   rds_security_group_id = module.rds.rds_sg_id
+  depends_on =[module.gcp_flask, module.rds]
 }
 
 module "add_product" {
@@ -80,6 +86,8 @@ module "add_product" {
   lambda_subnet_ids     = [module.rds.subnet_a_id, module.rds.subnet_b_id]
   rds_security_group_id = module.rds.rds_sg_id
   lambda_exec_role_arn = module.get_products.lambda_exec_role_arn
+
+  depends_on = [module.get_products]
 }
 
 module "get_item" {
@@ -94,6 +102,7 @@ module "get_item" {
   lambda_subnet_ids     = [module.rds.subnet_a_id, module.rds.subnet_b_id]
   rds_security_group_id = module.rds.rds_sg_id
   lambda_exec_role_arn  = module.get_products.lambda_exec_role_arn
+  depends_on = [module.add_product]
 }
 
 #! RDS MODULE 
@@ -125,4 +134,11 @@ module "api_gateway" {
 
   add_product_lambda_arn  = module.add_product.lambda_arn
   add_product_lambda_name = module.add_product.lambda_name
+
+  depends_on = [
+    module.get_products,
+    module.add_product,
+    module.get_item,
+    module.rds
+  ]
 }
