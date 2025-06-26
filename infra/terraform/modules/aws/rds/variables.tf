@@ -37,3 +37,10 @@ variable "db_username" {
 variable "db_password" {
   default = "SuperSecurePass123"
 }
+
+
+variable "allowed_cidr_blocks" {
+  type        = list(string)
+  description = "CIDR blocks allowed to access the RDS instance"
+  default     = ["10.0.0.0/16"]
+}
