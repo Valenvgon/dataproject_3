@@ -4,7 +4,7 @@ variable "gcp_region"  { default = "europe-west1" }
 
 variable "artifact_repo_generator" { default = "frontend" }
 
-variable "image_name" {default = "gcpflask"}
+variable "image_name" {default = "frontend"}
 
 
 

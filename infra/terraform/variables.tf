@@ -30,7 +30,7 @@ variable "rds_endpoint" {
 variable "db_user" {
   description = "Usuario de la base de datos"
   type        = string
-  default     = "admin"
+  default     = "dbadminuser"
 }
 
 variable "db_pass" {
