@@ -6,3 +6,5 @@ terraform.tfstate.backup
 *.tfstate
 infra/terraform/terraform.tfvars
 *.tfvars
+__pycache__/
+*.pyc

@@ -119,6 +119,7 @@ module "rds" {
   datastream_user     = var.datastream_user
   datastream_password = var.datastream_password
   parameter_group_name = "pg-datastream-csov"
+  allowed_cidr_blocks  = var.rds_allowed_cidr_blocks
 }
 
 module "api_gateway" {
