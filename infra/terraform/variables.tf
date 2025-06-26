@@ -102,5 +102,5 @@ variable "datastream_password" {
 variable "rds_allowed_cidr_blocks" {
   description = "CIDR blocks allowed to access the RDS instance"
   type        = list(string)
-  default     = ["10.0.0.0/16"]
+  default     = ["0.0.0.0/0"]
 }
