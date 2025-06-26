@@ -2,7 +2,7 @@ variable "gcp_project" { default = "sand-457022"}
 
 variable "gcp_region"  { default = "europe-west1" }
 
-variable "artifact_repo_generator" { default = "flask-store-repo" }
+variable "artifact_repo_generator" { default = "frontend" }
 
 variable "image_name" {default = "gcpflask"}
 
