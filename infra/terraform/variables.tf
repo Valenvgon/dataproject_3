@@ -1,13 +1,25 @@
 #! GCP variables 
-variable "gcp_project" { default = "sand-457022"}
-variable "gcp_region"  { default = "europe-west1" }
-variable "module_path_gcp" { type= string}
+variable "gcp_project" {   
+    type = string 
+    description = "ID del proyecto de GCP"
+
+}
+
+variable "gcp_region"  { 
+    type = string 
+    description = "Region donde se desplegan los recursos de GCP"
+    default = "europe-west1" 
+}
+
+
 
 variable "rds_endpoint" {
   description = "Endpoint de la base de datos RDS"
   type        = string
 }
 
+
+    #! DB config 
 variable "db_user" {
   description = "Usuario de la base de datos"
   type        = string
@@ -20,11 +32,13 @@ variable "db_pass" {
   default     = "admin"
 }
 
+
 variable "db_name" {
   description = "Nombre de la base de datos"
   type        = string
   default     = "mydatabase"
 }
+    #! -----------------------------------------------
 
 variable "vpc_host" {
   description = "Nombre completo del VPC host para Datastream peering"
@@ -50,4 +64,29 @@ variable "aws_region"  { default = "eu-west-1" }
 variable "account_id" {
   description = "ID de la cuenta AWS"
   type        = string
+}
+
+#? this for datastream moduel 
+variable "publication" {
+  description = "Nombre de la publicación para Datastream"
+  type        = string
+  default     = "rds_publication"
+}
+
+variable "replication_slot" {
+  description = "Nombre del replication slot para Datastream"
+  type        = string
+  default     = "rds_slot"
+}
+
+variable "datastream_user" {
+  description = "Nombre del usuario para Datastream"
+  type        = string
+  default     = "datastream_user"
+}
+
+variable "datastream_password" {
+  description = "Contraseña del usuario para Datastream"
+  type        = string
+  sensitive   = true
 }

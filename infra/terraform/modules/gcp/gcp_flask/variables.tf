@@ -6,9 +6,25 @@ variable "artifact_repo_generator" { default = "flask-store-repo" }
 
 variable "image_name" {default = "gcpflask"}
 
-variable "module_path_gcp" {type = string}
+
 
 variable "db_host" {
   type        = string 
   description = "Endpoint de la base de datos PostgreSQL (RDS)"
+}
+
+variable "db_user" {
+    type        = string
+    description = "Usuario de la base de datos PostgreSQL (RDS)"
+}
+
+variable "db_pass" {
+    type        = string
+    description = "Contraseña de la base de datos PostgreSQL (RDS)"
+}
+
+variable "db_name" {
+  description = "Nombre de la base de datos"
+  type        = string
+
 }

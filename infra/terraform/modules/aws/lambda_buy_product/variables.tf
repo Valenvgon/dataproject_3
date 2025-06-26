@@ -8,10 +8,7 @@ variable "aws_region" {
   description = "Región AWS"
 }
 
-variable "project_id" {
-  type        = string
-  description = "ID del proyecto (GCP, si lo necesitas para etiquetas o cross-cloud)"
-}
+
 
 variable "db_host" {
   type        = string
