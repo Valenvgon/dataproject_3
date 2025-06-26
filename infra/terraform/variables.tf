@@ -5,10 +5,17 @@ variable "gcp_project" {
 
 }
 
-variable "gcp_region"  { 
-    type = string 
+variable "gcp_region"  {
+    type = string
     description = "Region donde se desplegan los recursos de GCP"
     default = "europe-west1" 
+
+}
+
+variable "base_url" {
+    description = "URL base del API Gateway para la aplicación Flask"
+    type        = string
+    default     = "https://921k4ug3p4.execute-api.eu-west-1.amazonaws.com/prod"
 }
 
 

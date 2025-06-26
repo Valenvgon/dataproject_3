@@ -1,10 +1,14 @@
 from flask import Flask, jsonify, request, render_template
 import requests
+import os 
 
 app = Flask(__name__, static_folder="static", template_folder="templates")
 
 # URL base de tus Lambdas
-BASE_URL = "https://921k4ug3p4.execute-api.eu-west-1.amazonaws.com/prod"
+BASE_URL = os.getenv(
+    "BASE_URL",
+    "https://921k4ug3p4.execute-api.eu-west-1.amazonaws.com/prod",
+)
 
 # Página web principal
 @app.route("/", methods=["GET"])
