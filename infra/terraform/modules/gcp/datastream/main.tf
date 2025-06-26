@@ -13,11 +13,7 @@ resource "google_datastream_stream" "replication" {
 
       include_objects {
         postgresql_schemas {
-            schema = "public"
-
-        postgresql_tables {
-            table = "test_datastream"
-    }
+          schema = "public"
 
         postgresql_tables {
             table = "productos"
@@ -41,6 +37,6 @@ resource "google_datastream_stream" "replication" {
       }
     }
   }
-      backfill_all {}
+  backfill_all {}
 
 }

@@ -79,7 +79,7 @@
             const updateRes = await fetch(`/products/${id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ cantidad })
+                body: JSON.stringify({ stock: cantidad })
             });
 
             const result = await updateRes.json();
