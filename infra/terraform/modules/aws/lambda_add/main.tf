@@ -15,7 +15,7 @@ resource "null_resource" "build_and_push_lambda_image" {
         --push \
         --provenance=false \
         -t ${aws_ecr_repository.add_product.repository_url}:latest \
-        ../../../../../modules/aws/aws_lambda_add
+        /Users/valentinvg/Documents/GitHub/dataproject_3/modules/aws/aws_lambda_add
 
     EOT
     interpreter = ["/bin/bash", "-c"]

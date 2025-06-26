@@ -21,13 +21,13 @@ resource "google_datastream_connection_profile" "aws_rds_source" {
   display_name          = "AWS RDS Source Profile"
 
   postgresql_profile {
-    hostname = var.rds_endpoint
+    hostname = module.rds.rds_endpoint
     port     = 5432
     username = var.db_user
     password = var.db_pass
     database = var.db_name
   }
-  depends_on = [module.gcp_flask, module.rds]
+  depends_on = [module.rds]
 }
 
 resource "google_datastream_connection_profile" "bq_sink" {
@@ -41,7 +41,7 @@ resource "google_datastream_connection_profile" "bq_sink" {
 module "datastream" {
   source = "./modules/gcp/datastream"
   gcp_region             = var.gcp_region
-  rds_endpoint       = var.rds_endpoint
+  rds_endpoint       = module.rds.rds_endpoint
   rds_user           = var.db_user
   rds_password       = var.db_pass
   rds_db_name        = var.db_name
@@ -69,7 +69,7 @@ module "get_products" {
   db_pass = var.db_pass
   lambda_subnet_ids     = [module.rds.subnet_a_id, module.rds.subnet_b_id]
   rds_security_group_id = module.rds.rds_sg_id
-  depends_on =[module.gcp_flask, module.rds]
+  depends_on =[ module.rds]
 }
 
 module "add_product" {
