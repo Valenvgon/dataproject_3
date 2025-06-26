@@ -1,11 +1,11 @@
 output "lambda_name" {
-  value = aws_lambda_function.add_product.function_name
+  value = aws_lambda_function.get_item.function_name
 }
 
 output "lambda_arn" {
-  value = aws_lambda_function.add_product.arn
+  value = aws_lambda_function.get_item.arn
 }
 
 output "ecr_repo_url" {
-  value = aws_ecr_repository.add_product.repository_url
+  value = aws_ecr_repository.get_item.repository_url
 }
