@@ -45,7 +45,9 @@ variable "bigquery_dataset" {
 }
 
 #! AWS variables
-variable "aws_region"  { default = "us-east-1" }
+variable "aws_region"  { default = "eu-west-1" }
 
-
-
+variable "account_id" {
+  description = "ID de la cuenta AWS"
+  type        = string
+}
