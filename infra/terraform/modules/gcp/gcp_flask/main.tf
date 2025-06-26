@@ -2,7 +2,7 @@ resource "null_resource" "build_and_push_docker" {
   
 
   provisioner "local-exec" {
-    working_dir = "${path.module}/../../modules/gcp/web"
+    working_dir = "${path.module}/../../../../../modules/gcp/web"
     command = <<-EOT
       docker build --platform=linux/amd64 -t  europe-west1-docker.pkg.dev/${var.gcp_project}/${var.artifact_repo_generator}/${var.image_name}:latest .
       docker push europe-west1-docker.pkg.dev/${var.gcp_project}/${var.artifact_repo_generator}/${var.image_name}:latest
@@ -36,10 +36,15 @@ env {
   value = var.db_user
 }
 
-env {
-  name  = "DB_PASS"
-  value = var.db_pass
-}
+  env {
+    name  = "DB_PASS"
+    value = var.db_pass
+  }
+
+  env {
+    name  = "BASE_URL"
+    value = var.base_url
+  }
       }
     }
   }

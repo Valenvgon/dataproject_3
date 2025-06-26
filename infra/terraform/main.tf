@@ -11,6 +11,7 @@ module "gcp_flask" {
     db_name = var.db_name
     db_pass = var.db_pass
     db_user = var.db_user
+    base_url = var.base_url
     depends_on = [module.artifact_registry]
 }
 
@@ -109,4 +110,19 @@ module "rds" {
   datastream_user     = var.datastream_user
   datastream_password = var.datastream_password
   parameter_group_name = "pg-datastream-csov"
+}
+
+module "api_gateway" {
+  source = "./modules/aws/api_gateway"
+
+  aws_region = var.aws_region
+
+  get_products_lambda_arn  = module.get_products.lambda_arn
+  get_products_lambda_name = module.get_products.lambda_name
+
+  get_item_lambda_arn  = module.get_item.lambda_arn
+  get_item_lambda_name = module.get_item.lambda_name
+
+  add_product_lambda_arn  = module.add_product.lambda_arn
+  add_product_lambda_name = module.add_product.lambda_name
 }
