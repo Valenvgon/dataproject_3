@@ -2,7 +2,7 @@ resource "null_resource" "build_and_push_docker" {
   
 
   provisioner "local-exec" {
-    working_dir = var.module_path_gcp
+    working_dir = "${path.module}/../../modules/gcp/web"
     command = <<-EOT
       docker build --platform=linux/amd64 -t  europe-west1-docker.pkg.dev/${var.gcp_project}/${var.artifact_repo_generator}/${var.image_name}:latest .
       docker push europe-west1-docker.pkg.dev/${var.gcp_project}/${var.artifact_repo_generator}/${var.image_name}:latest
@@ -28,17 +28,17 @@ resource "google_cloud_run_service" "frontend" {
 
 env {
   name  = "DB_NAME"
-  value = "mydatabase"
+  value = var.db_name
 }
 
 env {
   name  = "DB_USER"
-  value = "dbadminuser"
+  value = var.db_user
 }
 
 env {
   name  = "DB_PASS"
-  value = "SuperSecurePass123"
+  value = var.db_pass
 }
       }
     }
@@ -55,8 +55,8 @@ env {
 }
 
 resource "google_cloud_run_service_iam_member" "public_access" {
-  service = google_cloud_run_service.store.name
-  location = google_cloud_run_service.store.location
+  service = google_cloud_run_service.frontend.name
+  location = google_cloud_run_service.frontend.location
   role = "roles/run.invoker"
   member = "allUsers"
 
