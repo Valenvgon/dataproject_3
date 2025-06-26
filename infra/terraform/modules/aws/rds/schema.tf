@@ -6,7 +6,7 @@ resource "null_resource" "init_schema" {
            -U ${var.db_username} \
            -d ${var.db_name} \
            -p 5432 \
-           -f ../../../../modules/aws/schemas/rds_products_schema.sql
+           -f ../../../../../modules/schemas/rds_products_schema.sql
 
     EOT
     interpreter = ["/bin/bash", "-c"]
