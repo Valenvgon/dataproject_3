@@ -6,7 +6,7 @@ resource "null_resource" "init_schema" {
            -U ${var.db_username} \
            -d ${var.db_name} \
            -p 5432 \
-           -f /Users/valentinvg/Documents/GitHub/dataproject_3/modules/schemas/rds_products_schema.sql
+           -f /Users/valentinvg/Documents/GitHub/dataproject_3/modules/schemas
 
     EOT
     interpreter = ["/bin/bash", "-c"]

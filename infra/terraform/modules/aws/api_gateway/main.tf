@@ -29,12 +29,13 @@ resource "aws_api_gateway_method" "get_products" {
 }
 
 resource "aws_api_gateway_integration" "get_products" {
+  depends_on = [aws_api_gateway_method.get_products]
   rest_api_id             = aws_api_gateway_rest_api.main.id
   resource_id             = aws_api_gateway_resource.get_products.id
-  http_method             = "GET"
+  http_method             = aws_api_gateway_method.get_products.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri = "arn:aws:apigateway:${var.aws_region}:lambda:path/2015-03-31/functions/${var.get_products_lambda_arn}/invocations"
+  uri                     = "arn:aws:apigateway:${var.aws_region}:lambda:path/2015-03-31/functions/${var.get_products_lambda_arn}/invocations"
   }
 
 resource "aws_lambda_permission" "allow_get_products" {
@@ -53,9 +54,10 @@ resource "aws_api_gateway_method" "get_item" {
 }
 
 resource "aws_api_gateway_integration" "get_item" {
+  depends_on = [aws_api_gateway_method.get_item]
   rest_api_id             = aws_api_gateway_rest_api.main.id
   resource_id             = aws_api_gateway_resource.get_item.id
-  http_method             = "GET"
+  http_method             = aws_api_gateway_method.get_item.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = "arn:aws:apigateway:${var.aws_region}:lambda:path/2015-03-31/functions/${var.get_item_lambda_arn}/invocations"
@@ -77,9 +79,10 @@ resource "aws_api_gateway_method" "add_product" {
 }
 
 resource "aws_api_gateway_integration" "add_product" {
+  depends_on = [aws_api_gateway_method.add_product]
   rest_api_id             = aws_api_gateway_rest_api.main.id
   resource_id             = aws_api_gateway_resource.add_product.id
-  http_method             = "POST"
+  http_method             = aws_api_gateway_method.add_product.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = "arn:aws:apigateway:${var.aws_region}:lambda:path/2015-03-31/functions/${var.add_product_lambda_arn}/invocations"
