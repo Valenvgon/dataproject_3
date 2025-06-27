@@ -63,3 +63,21 @@ gcloud run services describe frontend --region <REGION> --format='value(status.u
 ```
 
 Navigate to the URL in your browser to use the application hosted on Cloud Run.
+
+
+# Listado de Variables en tfvars necesarias 
+
+## GCP terraform Vars
+gcp_project= ""
+
+
+## AWS terraform Vars 
+aws_region = " "
+account_id = " "
+publication         = " "
+replication_slot    = " "
+datastream_user     = " "
+datastream_password = " "
+rds_endpoint        = " "
+db_user            = " "
+db_pass            = " "
