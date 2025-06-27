@@ -12,7 +12,7 @@ module "gcp_flask" {
     db_pass = var.db_pass
     db_user = var.db_user
     base_url = var.base_url
-    depends_on = [module.artifact_registry, module.rds]
+    depends_on = [module.artifact_registry, module.api_gateway]
 }
 
 resource "google_datastream_connection_profile" "aws_rds_source" {
