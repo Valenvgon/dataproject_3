@@ -1,91 +1,122 @@
-# Data Project 3
+# Data Project 3 🚀
 
-This repository contains a simple multi‑cloud application. The backend is built on AWS using a PostgreSQL RDS instance exposed through several Lambda functions and an API Gateway. A frontend written in Flask is containerised and deployed to Google Cloud Run. Data from the RDS instance can optionally be replicated into BigQuery using Google Datastream.
+¡Bienvenido! Este proyecto muestra cómo desplegar una **aplicación multicloud** 100 % funcional, combinando lo mejor de AWS y Google Cloud para ofrecer un backend elástico y un frontend ligero.
 
-## Repository structure
+---
 
+## ⚙️ Arquitectura
+
+A grandes rasgos, el sistema queda así:
+
+![Diagrama de Arquitectura](docs/arquitectura-dp3.jpg)
+
+> *(Funciona: al terminar el `terraform apply` tendrás la API operativa y la interfaz web lista para usar).*
+> **TIP:** Justo debajo encontrarás un espacio para añadir tu diagrama de infraestructura en alta resolución.
+
+<!-- 👉 Reemplaza la ruta con la de tu imagen -->
+
+![Diagrama de infraestructura](docs/infra_diagram.png)
+
+---
+
+## 🗂️ Estructura del repositorio
+
+| Ruta                                          | Descripción                                                   |
+| --------------------------------------------- | ------------------------------------------------------------- |
+| **`infra/`**                                  | Configuración **Terraform** que levanta todo lo necesario.    |
+| **`modules/aws/`**                            | Código de las funciones **Lambda** y recursos auxiliares.     |
+| **`modules/gcp/web/`**                        | Aplicación **Flask** preparada para contenedores y Cloud Run. |
+| **`modules/schemas/rds_products_schema.sql`** | Esquema inicial y datos semilla de la base de datos.          |
+
+---
+
+## 🔑 Prerrequisitos
+
+* **Terraform ≥ 1.4**
+* **Docker** con *Buildx* habilitado (para las imágenes de Lambda y Cloud Run)
+* **AWS CLI** con credenciales configuradas
+* **Google Cloud SDK** autenticado en tu proyecto
+* *(Opcional)* **Python 3.10+** si quieres arrancar la app Flask en local
+
+---
+
+## 📋 Variables necesarias (`terraform.tfvars`)
+
+```hcl
+# GCP
+gcp_project          = "<TU‑PROYECTO>"
+
+# AWS
+aws_region           = "<eu-west-1 | us-east-1 | ...>"
+account_id           = "<123456789012>"
+
+# Replicación PostgreSQL → BigQuery
+publication         = "<nombre_publication>"
+replication_slot    = "<nombre_slot>"
+
+datastream_user     = "<usuario_ds>"
+datastream_password = "<password_ds>"
+
+# Base de datos
+rds_endpoint        = "<rds.endpoint.amazonaws.com>"
+db_user             = "<usuario_rds>"
+db_pass             = "<password_rds>"
 ```
-infra/            # Terraform configuration
-modules/          # Application code and SQL schema
+
+> **Nota:** Copia `infra/terraform/terraform.tfvars` como punto de partida y rellena cada valor con los datos de tu entorno.
+
+---
+
+## 🚀 Despliegue con Terraform
+
+```bash
+cd infra/terraform
+terraform init          # Inicializa el directorio
+terraform plan          # (Opcional) Previsualiza los cambios
+terraform apply         # ¡A volar!
 ```
 
-- `modules/aws/*` contains the code for the Lambda functions.
-- `modules/gcp/web` contains the Flask application used as a minimal UI.
-- `modules/schemas/rds_products_schema.sql` defines the initial database schema and seed data.
+Al concluir, tendrás:
 
-## Prerequisites
+* Una instancia **RDS PostgreSQL**.
+* Tres **AWS Lambda** expuestas vía **API Gateway**.
+* Configuración de **Datastream** replicando en **BigQuery** (opcional).
+* Un servicio **Cloud Run** (`frontend`) con la interfaz web.
 
-- [Terraform](https://developer.hashicorp.com/terraform) 1.4+
-- Docker engine with Buildx enabled (used to build Lambda and Cloud Run images)
-- AWS credentials configured locally (for deploying RDS and Lambda)
-- Google Cloud SDK authenticated to your project (for Artifact Registry and Cloud Run)
-- Optional: Python 3.10+ if you want to run the Flask application locally
+---
 
-Before running Terraform you must provide values for the variables defined in `infra/terraform/variables.tf`. Copy `infra/terraform/terraform.tfvars` as a starting point and update the IDs, passwords and endpoints for your environment.
-
-## Deploying with Terraform
-
-1. Initialise the working directory:
-   ```bash
-   cd infra/terraform
-   terraform init
-   ```
-2. Review the plan (optional):
-   ```bash
-   terraform plan
-   ```
-3. Apply the configuration:
-   ```bash
-   terraform apply
-   ```
-   Terraform will build and push Docker images for the Lambdas and the Flask service. On completion you will have an RDS instance, three Lambda functions behind an API Gateway, the Datastream configuration and a Cloud Run service.
-
-## Running the Flask app locally
-
-The frontend can also be executed without Cloud Run. This is useful for testing the UI during development.
+## 🖥️ Ejecutar el frontend en local
 
 ```bash
 cd modules/gcp/web
-python -m venv .venv
-source .venv/bin/activate
+python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 python app.py
 ```
 
-By default the application points to the API Gateway URL hard coded in `app.py`. Modify the `BASE_URL` constant if your API Gateway endpoint differs. Once started the app will be available at [http://localhost:8080](http://localhost:8080).
+Abre [http://localhost:8080](http://localhost:8080) y listo.
+Si tu endpoint de API Gateway difiere, actualiza la constante `BASE_URL` en `app.py`.
 
-## Accessing the app on Cloud Run
+---
 
-When the Terraform deployment finishes, a Cloud Run service named `frontend` is created. You can obtain its URL with:
+## 🌐 Acceso al Cloud Run desplegado
 
 ```bash
-gcloud run services describe frontend --region <REGION> --format='value(status.url)'
+gcloud run services describe frontend \
+  --region <REGION> \
+  --format='value(status.url)'
 ```
 
-Navigate to the URL in your browser to use the application hosted on Cloud Run.
+Visita la URL resultante para disfrutar de la aplicación *hosted* en Cloud Run.
 
+---
 
-# Listado de Variables en tfvars necesarias 
+---
 
-## GCP terraform Vars
-gcp_project= ""
+## 💬 Siguientes pasos
 
+1. **Añade tu diagrama** donde indica la imagen para tener la foto completa de la arquitectura.
+2. Personaliza la capa de datos o crea endpoints Lambda adicionales.
+3. Conecta Datastream solo si necesitas análisis avanzado en BigQuery.
 
-## AWS terraform Vars 
-aws_region = " "
-
-account_id = " "
-
-publication         = " "
-
-replication_slot    = " "
-
-datastream_user     = " "
-
-datastream_password = " "
-
-rds_endpoint        = " "
-
-db_user            = " "
-
-db_pass            = " "
+¡Y eso es todo! Con este proyecto tendrás una base sólida, probada y **funcionando** para experimentar con infra multicloud sin dolores de cabeza. ✨
