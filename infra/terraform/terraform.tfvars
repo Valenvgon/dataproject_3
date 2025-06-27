@@ -1,6 +1,5 @@
 #! GCP terraform Vars
 gcp_project= "sand-457022"
-base_url   = "https://921k4ug3p4.execute-api.eu-west-1.amazonaws.com/prod"
 
 
 #! AWS terraform Vars 

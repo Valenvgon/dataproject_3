@@ -11,7 +11,7 @@ module "gcp_flask" {
     db_name = var.db_name
     db_pass = var.db_pass
     db_user = var.db_user
-    base_url = var.base_url
+    base_url = module.api_gateway.invoke_url
     depends_on = [module.artifact_registry, module.api_gateway]
 }
 

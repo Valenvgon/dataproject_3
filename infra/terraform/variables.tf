@@ -12,11 +12,6 @@ variable "gcp_region"  {
 
 }
 
-variable "base_url" {
-    description = "URL base del API Gateway para la aplicación Flask"
-    type        = string
-    default     = "https://921k4ug3p4.execute-api.eu-west-1.amazonaws.com/prod"
-}
 
 
 
@@ -36,7 +31,7 @@ variable "db_user" {
 variable "db_pass" {
   description = "Contraseña de la base de datos"
   type        = string
-  default     = "admin"
+  default     = "SuperSecurePass123"
 }
 
 
