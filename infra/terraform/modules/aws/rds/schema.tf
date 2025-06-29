@@ -1,6 +1,6 @@
 resource "null_resource" "init_schema" {
   provisioner "local-exec" {
-    command = <<EOT
+    command     = <<EOT
       export PGPASSWORD=${var.db_password}
       psql -h ${aws_db_instance.postgres_db.address} \
            -U ${var.db_username} \

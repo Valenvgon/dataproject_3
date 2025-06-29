@@ -1,14 +1,14 @@
 #! GCP variables 
-variable "gcp_project" {   
-    type = string 
-    description = "ID del proyecto de GCP"
+variable "gcp_project" {
+  type        = string
+  description = "ID del proyecto de GCP"
 
 }
 
-variable "gcp_region"  {
-    type = string
-    description = "Region donde se desplegan los recursos de GCP"
-    default = "europe-west1" 
+variable "gcp_region" {
+  type        = string
+  description = "Region donde se desplegan los recursos de GCP"
+  default     = "europe-west1"
 
 }
 
@@ -21,7 +21,7 @@ variable "rds_endpoint" {
 }
 
 
-    #! DB config 
+#! DB config 
 variable "db_user" {
   description = "Usuario de la base de datos"
   type        = string
@@ -40,7 +40,7 @@ variable "db_name" {
   type        = string
   default     = "mydatabase"
 }
-    #! -----------------------------------------------
+#! -----------------------------------------------
 
 variable "vpc_host" {
   description = "Nombre completo del VPC host para Datastream peering"
@@ -61,7 +61,7 @@ variable "bigquery_dataset" {
 }
 
 #! AWS variables
-variable "aws_region"  { default = "eu-west-1" }
+variable "aws_region" { default = "eu-west-1" }
 
 variable "account_id" {
   description = "ID de la cuenta AWS"

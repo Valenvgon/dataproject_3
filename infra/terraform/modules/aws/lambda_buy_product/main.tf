@@ -6,7 +6,7 @@ resource "aws_ecr_repository" "get_item" {
 
 resource "null_resource" "build_and_push_lambda_image" {
   provisioner "local-exec" {
-    command = <<EOT
+    command     = <<EOT
       docker buildx inspect lambda-builder >/dev/null 2>&1 || docker buildx create --name lambda-builder --driver docker-container --use
       aws ecr get-login-password --region ${var.aws_region} | docker login --username AWS --password-stdin ${aws_ecr_repository.get_item.repository_url}
       docker buildx build \

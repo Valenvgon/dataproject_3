@@ -1,26 +1,26 @@
-variable "gcp_project" { default = "sand-457022"}
+variable "gcp_project" { default = "sand-457022" }
 
-variable "gcp_region"  { default = "europe-west1" }
+variable "gcp_region" { default = "europe-west1" }
 
 variable "artifact_repo_generator" { default = "frontend" }
 
-variable "image_name" {default = "frontend"}
+variable "image_name" { default = "frontend" }
 
 
 
 variable "db_host" {
-  type        = string 
+  type        = string
   description = "Endpoint de la base de datos PostgreSQL (RDS)"
 }
 
 variable "db_user" {
-    type        = string
-    description = "Usuario de la base de datos PostgreSQL (RDS)"
+  type        = string
+  description = "Usuario de la base de datos PostgreSQL (RDS)"
 }
 
 variable "db_pass" {
-    type        = string
-    description = "Contraseña de la base de datos PostgreSQL (RDS)"
+  type        = string
+  description = "Contraseña de la base de datos PostgreSQL (RDS)"
 }
 
 variable "db_name" {
