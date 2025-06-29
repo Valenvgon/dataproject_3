@@ -17,7 +17,7 @@ variable "db_name" {
   type        = string
   description = "Nombre de la base de datos"
 }
- 
+
 variable "db_user" {
   type        = string
   description = "Usuario para la base de datos"

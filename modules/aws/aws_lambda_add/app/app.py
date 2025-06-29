@@ -21,7 +21,10 @@ def handler(event, context):
         stock = body.get("stock", 0)
 
         if not nombre:
-            raise ValueError("Campo 'nombre' es obligatorio")
+            return {
+                "statusCode": 400, # Bad Request
+                "body": json.dumps({"error": "El campo 'nombre' es obligatorio"})
+            }
 
         print(f"Insertando producto: {nombre}, stock: {stock}")
         cursor.execute(

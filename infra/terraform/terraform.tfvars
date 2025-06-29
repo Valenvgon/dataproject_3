@@ -1,5 +1,5 @@
 #! GCP terraform Vars
-gcp_project= ""
+gcp_project = ""
 
 
 #! AWS terraform Vars 
@@ -11,7 +11,7 @@ replication_slot    = ""
 datastream_user     = ""
 datastream_password = ""
 
-rds_endpoint        = ""
+rds_endpoint = ""
 
-db_user            = ""
-db_pass            = ""
+db_user = ""
+db_pass = ""

@@ -1,7 +1,7 @@
 resource "google_datastream_stream" "replication" {
-  stream_id    = "rds-to-bigquery"
-  display_name = "Replication RDS to BigQuery"
-  location     = var.gcp_region
+  stream_id     = "rds-to-bigquery"
+  display_name  = "Replication RDS to BigQuery"
+  location      = var.gcp_region
   desired_state = "RUNNING"
 
   source_config {
@@ -15,11 +15,11 @@ resource "google_datastream_stream" "replication" {
         postgresql_schemas {
           schema = "public"
 
-        postgresql_tables {
+          postgresql_tables {
             table = "productos"
-    }
-  }
-}
+          }
+        }
+      }
 
     }
   }

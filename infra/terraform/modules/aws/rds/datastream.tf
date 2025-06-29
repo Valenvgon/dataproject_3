@@ -1,6 +1,6 @@
 resource "null_resource" "configure_rds_for_datastream" {
   triggers = {
-    always_run = "${timestamp()}"  # Esto fuerza la recreación cada vez
+    always_run = "${timestamp()}" # Esto fuerza la recreación cada vez
   }
 
   provisioner "local-exec" {
