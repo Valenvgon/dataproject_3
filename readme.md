@@ -8,14 +8,12 @@
 
 A grandes rasgos, el sistema queda así:
 
-![Diagrama de Arquitectura](docs/arquitectura-dp3.jpg)
-
 > *(Funciona: al terminar el `terraform apply` tendrás la API operativa y la interfaz web lista para usar).*
 > **TIP:** Justo debajo encontrarás un espacio para añadir tu diagrama de infraestructura en alta resolución.
 
 <!-- 👉 Reemplaza la ruta con la de tu imagen -->
 
-![Diagrama de infraestructura](docs/infra_diagram.png)
+![Diagrama de infraestructura](docs/infra_diagram2.png)
 
 ---
 
